@@ -1,0 +1,10 @@
+{
+  "body": {
+    "agentCode": "01012541",
+    "channelCode": "10",
+    "machineSystem": "android",
+    "passWord": "ftp123456"
+  }
+}
+
+"{\n  \"body\": {\n    \"agentCode\": \"01012541\",\n    \"channelCode\": \"10\",\n    \"machineSystem\": \"android\",\n    \"passWord\": \"ftp123456\"\n  }\n}"
