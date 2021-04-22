@@ -28,6 +28,8 @@ public class UserService {
      * metrics.rollingStats.numBuckets 滚动桶数，默认10，所以是一秒一个桶
      * 断路器根据时间窗口的请求量，错误数来决定是否打开，默认是50%
      *
+     * groupKey默认是类名，commandKey默认是方法名，每个grouopKey对应一个线程池，如需要给特定的commandKey指定线程池则需要
+     * 指定ThreadPoolKey
      *
      * @return
      */
@@ -35,7 +37,7 @@ public class UserService {
     public List<User> listUsers() {
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             log.error("interruptedException");
         }
@@ -43,11 +45,27 @@ public class UserService {
         return null;
     }
 
+
+
+    @HystrixCommand(fallbackMethod = "listUsersFallback")
+    public List<User> listUsers3() {
+        throw new RuntimeException();
+    }
+
+
+
+    @HystrixCommand(fallbackMethod = "listUsersFallback", ignoreExceptions = {Exception.class})
+    public List<User> listUsers4() throws Exception {
+        throw new RuntimeException();
+    }
+
+
+
     @HystrixCommand(fallbackMethod = "listUsersFallback", groupKey = "userService2")
     public List<User> listUsers2() {
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             log.error("interruptedException2");
         }

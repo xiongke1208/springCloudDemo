@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 
 @SpringBootApplication
@@ -41,7 +42,7 @@ public class HystrixApplication {
     public List<User> listUser(){
 
         log.info("getUser........");
-        List<User> result = null;
+        List<User> result = Collections.emptyList();
         try {
             result = userService.listUsers();
             return result;
@@ -57,7 +58,7 @@ public class HystrixApplication {
     public List<User> listUser2(){
 
         log.info("getUser2........");
-        List<User> result = null;
+        List<User> result = Collections.emptyList();
         try {
             result = userService.listUsers2();
             return result;
@@ -68,4 +69,37 @@ public class HystrixApplication {
     }
 
 
+
+    @RequestMapping("/getUser3")
+    @ResponseBody
+    public List<User> listUser3(){
+
+        log.info("getUser3........");
+        List<User> result = Collections.emptyList();
+        try {
+            result = userService.listUsers3();
+            return result;
+        } finally {
+            log.info("3response:"+result);
+        }
+
+    }
+
+    @RequestMapping("/getUser4")
+    @ResponseBody
+    public List<User> listUser4(){
+
+        log.info("getUser4........");
+        List<User> result = Collections.emptyList();
+        try {
+            result = userService.listUsers4();
+        }catch (Exception e) {
+            log.info("error:"+result);
+        } finally {
+
+            log.info("4response:"+result);
+        }
+
+        return result;
+    }
 }
